@@ -43,7 +43,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
       <CardHeader
         avatar={<Avatar className={classes.avatar} src={product.siteLogo} />}
         title={product.title}
-        subheader={`Цена: ${product.price}₽`}
+        subheader={`Цена: ${product.price} ₽`}
       />
       <CardMedia className={classes.media} image={product.imageUrl} />
       <CardContent>
