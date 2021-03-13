@@ -1,8 +1,6 @@
 import React from 'react';
 import {
   makeStyles,
-  Theme,
-  createStyles,
   Card,
   CardHeader,
   CardMedia,
@@ -17,46 +15,40 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    root: {
-      maxWidth: 345,
-      width: '100%',
-    },
-    media: {
-      height: 0,
-      paddingTop: '56.25%',
-    },
-    expand: {
-      transform: 'rotate(0deg)',
-      marginLeft: 'auto',
-      transition: theme.transitions.create('transform', {
-        duration: theme.transitions.duration.shortest,
-      }),
-    },
-    expandOpen: {
-      transform: 'rotate(180deg)',
-    },
-    avatar: {
-      backgroundColor: red[500],
-    },
-  })
-);
+import { Product } from 'client/typings';
 
-export const ProductCard: React.FC = () => {
+const useStyles = makeStyles(() => ({
+  root: {
+    maxWidth: 345,
+    width: '100%',
+  },
+  media: {
+    height: 0,
+    paddingTop: '56.25%',
+  },
+  avatar: {
+    backgroundColor: red[500],
+  },
+}));
+
+type Props = {
+  product: Product;
+};
+
+export const ProductCard: React.FC<Props> = ({ product }) => {
   const classes = useStyles();
 
   return (
     <Card className={classes.root}>
       <CardHeader
-        avatar={<Avatar className={classes.avatar}>M</Avatar>}
-        title="Товар"
-        subheader="Цена"
+        avatar={<Avatar className={classes.avatar} src={product.siteLogo} />}
+        title={product.title}
+        subheader={`Цена: ${product.price}₽`}
       />
-      <CardMedia className={classes.media} image="/search/b1.jpg" />
+      <CardMedia className={classes.media} image={product.imageUrl} />
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
-          Описание
+          {product.description}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

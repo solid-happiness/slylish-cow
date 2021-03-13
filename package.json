@@ -3,13 +3,18 @@
   "dependencies": {
     "@material-ui/core": "^4.11.3",
     "@material-ui/icons": "^4.11.2",
+    "@material-ui/lab": "^4.0.0-alpha.57",
+    "@types/ramda": "^0.27.38",
+    "@types/throttle-debounce": "^2.1.0",
     "clsx": "^1.1.1",
     "fontsource-roboto": "^4.0.0",
     "next": "^10.0.8",
     "ramda": "^0.27.1",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "react-use": "^17.2.1"
+    "react-use": "^17.2.1",
+    "sleep-promise": "^9.1.0",
+    "throttle-debounce": "^3.0.1"
   },
   "scripts": {
     "dev": "next",

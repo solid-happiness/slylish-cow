@@ -1,6 +1,10 @@
 import React from 'react';
-import { makeStyles } from '@material-ui/core';
+import { map } from 'ramda';
+import { makeStyles, Grow, Fade } from '@material-ui/core';
 
+import { Product } from 'client/typings';
+
+import { Stub } from './Stub';
 import { ProductCard } from '../ProductCard';
 
 const useStyles = makeStyles((theme) => ({
@@ -15,17 +19,38 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const ProductsList: React.FC = () => {
+type Props = {
+  input: string;
+  loading: boolean;
+  products: Product[];
+};
+
+export const ProductsList: React.FC<Props> = ({ input, loading, products }) => {
   const s = useStyles();
+  if (!input) {
+    return null;
+  }
+
+  if (loading) {
+    return (
+      <Fade in={loading}>
+        <section className={s.root}>
+          <Stub />
+        </section>
+      </Fade>
+    );
+  }
 
   return (
-    <section className={s.root}>
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-    </section>
+    <Grow in={!loading}>
+      <section className={s.root}>
+        {map(
+          (product) => (
+            <ProductCard key={product.productUrl} product={product} />
+          ),
+          products
+        )}
+      </section>
+    </Grow>
   );
 };

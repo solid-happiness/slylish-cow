@@ -38,19 +38,17 @@ const useStyles = makeStyles((theme) => ({
 export const Search: React.FC = () => {
   const s = useStyles();
 
-  useSearch();
-
   const [value, setValue] = useState('');
   const input = useRef<HTMLInputElement>();
 
-  useMount(() => {
-    setTimeout(() => {
-      if (!input.current) {
-        return;
-      }
+  const { loading, load, products } = useSearch(value);
 
-      input.current.focus();
-    }, 3000);
+  useMount(() => {
+    if (!input.current) {
+      return;
+    }
+
+    input.current.focus();
   });
 
   return (
@@ -74,10 +72,13 @@ export const Search: React.FC = () => {
             fullWidth
             inputRef={input}
             value={value}
-            onChange={(event) => setValue(event.target.value)}
+            onChange={(event) => {
+              setValue(event.target.value);
+              load(event.target.value);
+            }}
           />
         </div>
-        <ProductsList />
+        <ProductsList input={value} loading={loading} products={products} />
       </Container>
     </Background>
   );
