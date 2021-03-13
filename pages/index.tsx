@@ -1,24 +1,38 @@
-import React from 'react';
-import Container from '@material-ui/core/Container';
-import Typography from '@material-ui/core/Typography';
-import Box from '@material-ui/core/Box';
-import ProTip from '../client/ProTip';
-import Link from '../client/Link';
-import Copyright from '../client/Copyright';
+import 'fontsource-roboto';
 
-export default function Index() {
+import React from 'react';
+import { makeStyles, CssBaseline, MuiThemeProvider } from '@material-ui/core';
+
+import { theme } from '../client/components/theme';
+import { Layout } from '../client/components/Layout';
+import { Search } from '../client/components/Search';
+
+const useStyles = makeStyles(() => ({
+  '@global': {
+    'html, body, #root': {
+      width: '100%',
+      height: '100%',
+    },
+  },
+  root: {
+    width: '100%',
+    minHeight: '100vh',
+  },
+}));
+
+const Index: React.FC = () => {
+  const s = useStyles();
+
   return (
-    <Container maxWidth="sm">
-      <Box my={4}>
-        <Typography variant="h4" component="h1" gutterBottom>
-          Next.js with TypeScript example
-        </Typography>
-        <Link href="/about" color="secondary">
-          Go to the about page
-        </Link>
-        <ProTip />
-        <Copyright />
-      </Box>
-    </Container>
+    <MuiThemeProvider theme={theme}>
+      <div className={s.root}>
+        <CssBaseline />
+        <Layout>
+          <Search />
+        </Layout>
+      </div>
+    </MuiThemeProvider>
   );
-}
+};
+
+export default Index;
