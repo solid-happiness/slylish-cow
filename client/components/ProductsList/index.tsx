@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     display: 'grid',
     grid: '1fr / 1fr 1fr',
-    alignItems: 'center',
+    alignItems: 'stretch',
     justifyItems: 'center',
     gridRowGap: theme.spacing(4),
     marginTop: theme.spacing(4),

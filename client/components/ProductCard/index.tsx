@@ -21,6 +21,8 @@ const useStyles = makeStyles(() => ({
   root: {
     maxWidth: 345,
     width: '100%',
+    display: 'flex',
+    flexDirection: 'column',
   },
   media: {
     height: 0,
@@ -29,6 +31,9 @@ const useStyles = makeStyles(() => ({
   avatar: {
     backgroundColor: red[500],
   },
+  content: {
+    flex: 1,
+  },
 }));
 
 type Props = {
@@ -36,17 +41,17 @@ type Props = {
 };
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
-  const classes = useStyles();
+  const s = useStyles();
 
   return (
-    <Card className={classes.root}>
+    <Card className={s.root}>
       <CardHeader
-        avatar={<Avatar className={classes.avatar} src={product.siteLogo} />}
+        avatar={<Avatar className={s.avatar} src={product.siteLogo} />}
         title={product.title}
         subheader={`Цена: ${product.price} ₽`}
       />
-      <CardMedia className={classes.media} image={product.imageUrl} />
-      <CardContent>
+      <CardMedia className={s.media} image={product.imageUrl} />
+      <CardContent className={s.content}>
         <Typography variant="body2" color="textSecondary" component="p">
           {product.description}
         </Typography>
