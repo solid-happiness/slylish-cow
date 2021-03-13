@@ -21,7 +21,7 @@ const App = (props: AppProps) => {
   return (
     <React.Fragment>
       <Head>
-        <title>Stylish Cow</title>
+        <title>stylish cow</title>
         <meta
           name="viewport"
           content="minimum-scale=1, initial-scale=1, width=device-width"

@@ -7,7 +7,7 @@ const useStyles = makeStyles(() => ({
     height: '100%',
     position: 'relative',
     display: 'flex',
-    alignItems: 'center',
+    alignItems: 'baseline',
     justifyContent: 'center',
     minHeight: 'calc(100vh - 74px)',
   },
@@ -29,20 +29,20 @@ const useStyles = makeStyles(() => ({
     animationName: '$search-background-fade-in-out',
     animationTimingFunction: 'ease-in-out',
     animationIterationCount: 'infinite',
-    animationDuration: '8s',
+    animationDuration: '16s',
   },
   '@global': {
     '#search-background img:nth-of-type(1)': {
-      animationDelay: '16s',
+      animationDelay: '2s',
     },
     '#search-background img:nth-of-type(2)': {
-      animationDelay: '32s',
+      animationDelay: '6s',
     },
     '#search-background img:nth-of-type(3)': {
-      animationDelay: '48s',
+      animationDelay: '8s',
     },
     '#search-background img:nth-of-type(4)': {
-      animationDelay: '64s',
+      animationDelay: '12s',
     },
   },
   '@keyframes search-background-fade-in-out': {
@@ -68,14 +68,14 @@ export const Background: React.FC = ({ children }) => {
   const s = useStyles();
 
   return (
-    <div className={s.root}>
+    <section className={s.root}>
       <div className={s.images} id="search-background">
         <img className={s.background} src="/search/b1.jpg" />
         <img className={s.background} src="/search/b2.jpg" />
-        <img className={s.background} src="/search/b3.jpg" />
+        <img className={s.background} src="/search/b3.webp" />
         <img className={s.background} src="/search/b4.jpg" />
       </div>
       {children}
-    </div>
+    </section>
   );
 };

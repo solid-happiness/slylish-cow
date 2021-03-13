@@ -2,6 +2,7 @@ import React, { useState, useRef } from 'react';
 import { useMount } from 'react-use';
 import { makeStyles, Container, TextField } from '@material-ui/core';
 
+import { Footer } from 'client/components/Footer';
 import { Background } from './Background';
 import { ProductsList } from '../ProductsList';
 import { useSearch } from './useSearch';
@@ -15,7 +16,7 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     position: 'relative',
     zIndex: 1,
-    background: theme.palette.common.white,
+    background: '#f7f9fa',
     borderRadius: '16px',
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
@@ -44,11 +45,13 @@ export const Search: React.FC = () => {
   const { loading, load, products } = useSearch(value);
 
   useMount(() => {
-    if (!input.current) {
-      return;
-    }
+    setTimeout(() => {
+      if (!input.current) {
+        return;
+      }
 
-    input.current.focus();
+      input.current.focus();
+    }, 1000);
   });
 
   return (
@@ -80,6 +83,7 @@ export const Search: React.FC = () => {
         </div>
         <ProductsList input={value} loading={loading} products={products} />
       </Container>
+      <Footer />
     </Background>
   );
 };

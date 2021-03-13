@@ -17,7 +17,7 @@ export const Layout: React.FC = ({ children }) => {
   return (
     <>
       <Header />
-      <section className={s.main}>{children}</section>
+      <main className={s.main}>{children}</main>
     </>
   );
 };
