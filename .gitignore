@@ -2,3 +2,8 @@
 /.next
 /venv
 /.DS_Store
+
+/deploy/nginx.conf
+/deploy/stylish-cow.service
+
+/logs
