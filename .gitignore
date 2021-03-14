@@ -2,6 +2,7 @@
 /.next
 /venv
 /.DS_Store
+.vscode
 
 /deploy/nginx.conf
 /deploy/*.service

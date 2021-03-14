@@ -61,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
       transform: 'translate(0, -4px)',
       zIndex: 999,
     },
+    [theme.breakpoints.down('sm')]: {
+      width: '100%',
+    },
   },
   tooltip: {
     padding: '2px 4px',
