@@ -15,6 +15,6 @@ class Product(NamedTuple):
             'imageUrl': self.image_url,
             'price': self.price,
             'productUrl': self.product_url,
-            'descriptions': self.description,
+            'description': self.description,
             'siteLogo': self.site_logo
         }

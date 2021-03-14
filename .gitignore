@@ -4,7 +4,7 @@
 /.DS_Store
 
 /deploy/nginx.conf
-/deploy/stylish-cow.service
+/deploy/*.service
 
 /logs
 *.pyc

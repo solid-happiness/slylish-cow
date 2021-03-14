@@ -29,9 +29,13 @@ export const useSearch = (value: string) => {
 
       await sleep(1000);
 
-      const response = await axios.get<{ payload: Product[] }>('/api/search', {
-        params: { query: input },
-      });
+      const response = await axios
+        .get<{ payload: Product[] }>('/api/search', {
+          params: { query: input },
+        })
+        .catch(() => ({
+          data: { payload: [] },
+        }));
 
       if (input !== state.current.value) {
         return;
