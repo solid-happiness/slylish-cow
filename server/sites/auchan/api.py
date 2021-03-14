@@ -1,8 +1,7 @@
 from typing import List
 from itertools import chain
 
-from server.products import Product
-from server.companies import Company, SearchParams
+from server.models import Product, Company, SearchParams
 
 
 class AuchanApi(Company):

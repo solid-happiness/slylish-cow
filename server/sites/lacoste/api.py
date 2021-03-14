@@ -1,8 +1,7 @@
 from typing import List
 
 from server.common.utils import parse_float
-from server.companies import Company, SearchParams
-from server.products import Product
+from server.models import Product, Company, SearchParams
 
 
 class LacosteApi(Company):

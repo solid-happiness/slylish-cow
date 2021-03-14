@@ -1,7 +1,6 @@
 from typing import List
 
-from server.products import Product
-from server.companies import Company, SearchParams
+from server.models import Product, Company, SearchParams
 
 
 class IkeaApi(Company):

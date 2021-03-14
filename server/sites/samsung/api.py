@@ -3,8 +3,7 @@ from typing import List
 
 import requests
 from server.common.utils import clean_html, parse_float
-from server.companies import Company, SearchParams
-from server.products import Product
+from server.models import Product, Company, SearchParams
 
 
 class SamsungApi(Company):

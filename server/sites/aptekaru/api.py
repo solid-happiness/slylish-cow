@@ -1,8 +1,7 @@
 from typing import List
 
 from server.common.utils import clean_html
-from server.companies import Company, SearchParams
-from server.products import Product
+from server.models import Product, Company, SearchParams
 
 
 class AptekaruApi(Company):
