@@ -8,8 +8,6 @@ const useStyles = makeStyles((theme) => ({
   appBar: {
     background: theme.palette.common.white,
     boxShadow: 'none',
-    borderBottomLeftRadius: '8px',
-    borderBottomRightRadius: '8px',
   },
   container: {
     padding: 0,
