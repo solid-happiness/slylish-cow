@@ -6,7 +6,7 @@ from server.companies import SearchApi, SearchParams
 
 
 class IkeaApi(SearchApi):
-    
+
     def search(params: SearchParams) -> List[Product]:
         response = requests.get(
             f'https://sik.search.blue.cdtapps.com/ru/ru/search-result-page?q={params.query}&size={params.size}&columns=4'
@@ -16,8 +16,11 @@ class IkeaApi(SearchApi):
         if not search_result:
             return []
 
-        items = search_result['products']['main']['items']
-        print(items)
+        items = list(filter(
+            lambda item: item.get('product'),
+            search_result['products']['main']['items']
+        ))
+
         return [
             Product(
                 title=item['product']['name'],
