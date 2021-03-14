@@ -7,3 +7,5 @@
 /deploy/stylish-cow.service
 
 /logs
+*.pyc
+__pycache__

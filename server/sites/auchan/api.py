@@ -33,7 +33,8 @@ class AuchanApi(SearchApi):
                     price=item['price']['value'],
                     image_url=f"https://www.auchan.ru/files/compressed/{item['image']['id']}/",
                     product_url=f"https://www.auchan.ru/product/{item['code']}/",
-                    description=description
+                    description=description,
+                    site_logo='/companies/auchan/img/logo.png'
                 )
             )
 

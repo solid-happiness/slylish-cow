@@ -48,6 +48,7 @@ class AptekaruApi(SearchApi):
                     image_url=item['photos'][0]['original'],
                     product_url=f"https://apteka.ru/product/{item_id}/",
                     description=description,
+                    site_logo='/companies/aptekaru/img/logo.png'
                 )
             )
 

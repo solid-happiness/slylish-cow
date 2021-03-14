@@ -29,6 +29,7 @@ class LacosteApi(SearchApi):
                     image_url=f"https:{item['images'][0]}",
                     product_url=f"https://lacoste.ru/catalog/{item['sec_code']}/{item_code}/",
                     description=description,
+                    site_logo='/companies/lacoste/img/logo.png'
                 )
             )
 

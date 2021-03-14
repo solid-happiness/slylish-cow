@@ -7,6 +7,7 @@
     "@reduxjs/toolkit": "^1.5.0",
     "@types/ramda": "^0.27.38",
     "@types/throttle-debounce": "^2.1.0",
+    "axios": "^0.21.1",
     "clipboard": "^2.0.8",
     "clsx": "^1.1.1",
     "fontsource-roboto": "^4.0.0",

@@ -9,7 +9,7 @@ from server.sites.ikea.api import IkeaApi
 
 
 COMPANIES_LIST: List[Company] = [
-    Company('Ikea', 'https://yandex.ru', IkeaApi),
+    Company('Ikea', 'https://www.ikea.com/', IkeaApi),
     Company('Lacoste', 'https://lacoste.ru', LacosteApi),
     Company('Auchan', 'https://auchan.ru', AuchanApi),
     Company('Aptekaru', 'https://apteka.ru', AptekaruApi),
@@ -19,15 +19,10 @@ COMPANIES_LIST: List[Company] = [
 app = Flask(__name__)
 
 
-@app.route('/test')
-def main_api():
-    return jsonify({'test': 'ok'})
-
-
-@app.route('/search', methods=['GET'])
+@app.route('/api/search', methods=['GET'])
 def search_product():
     query = request.args.get('query')
-    results_size = request.args.get('size', 10)
+    results_size = int(request.args.get('size', 15))
     if not query:
         return jsonify({'status': 'error', 'message': 'EMPTY_QUERY'})
 
@@ -37,8 +32,7 @@ def search_product():
         searched_products.extend(
             company.api.search(search_params)
         )
-    return jsonify(
-        {
-            'payload': list(map(lambda product: product.to_json(), searched_products[:results_size]))
-        }
-    )
+
+    return jsonify({
+        'payload': list(map(lambda product: product.to_json(), searched_products[:results_size * len(COMPANIES_LIST)]))
+    })

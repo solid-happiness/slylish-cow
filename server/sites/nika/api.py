@@ -15,5 +15,6 @@ def search(query):
             'image_url': item['images']['main'],
             'product_url': f"https://nikamebelopt.ru/catalog/{item['group']['slug']}/{item['slug']}/",
             'description': item['additional_properties']['description'],
+            'site_logo': '/companies/nika/img/logo.png'
         } for item in items
     ]

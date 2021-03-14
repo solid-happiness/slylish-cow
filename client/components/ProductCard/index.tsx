@@ -25,12 +25,13 @@ import { Product } from 'client/typings';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
-    width: '100%',
+    width: 345,
     display: 'flex',
     flexDirection: 'column',
+    height: '100%',
     [theme.breakpoints.down('sm')]: {
       maxWidth: 'unset',
+      width: '100%',
     },
   },
   media: {

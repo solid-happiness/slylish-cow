@@ -20,13 +20,13 @@ class IkeaApi(SearchApi):
             lambda item: item.get('product'),
             search_result['products']['main']['items']
         ))
-
         return [
             Product(
                 title=item['product']['name'],
                 price=item['product']['priceNumeral'],
                 image_url=item['product']['mainImageUrl'],
                 product_url=item['product']['pipUrl'],
-                description=item['product']['typeName']
+                description=item['product']['typeName'],
+                site_logo='/companies/ikea/img/logo.png'
             ) for item in items
         ]

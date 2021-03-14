@@ -7,6 +7,7 @@ class Product(NamedTuple):
     price: float
     product_url: str
     description: str
+    site_logo: str
 
     def to_json(self):
         return {
@@ -14,5 +15,6 @@ class Product(NamedTuple):
             'imageUrl': self.image_url,
             'price': self.price,
             'productUrl': self.product_url,
-            'descriptions': self.description
+            'descriptions': self.description,
+            'siteLogo': self.site_logo
         }
