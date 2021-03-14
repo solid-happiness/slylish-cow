@@ -26,14 +26,19 @@ def main_api():
 
 @app.route('/search', methods=['GET'])
 def search_product():
+    query = request.args.get('query')
+    results_size = request.args.get('size', 10)
+    if not query:
+        return jsonify({'status': 'error', 'message': 'EMPTY_QUERY'})
+
     searched_products = []
-    search_params = SearchParams(query=request.args.get('query'), size=request.args.get('size', 3))
+    search_params = SearchParams(query=query, size=results_size)
     for company in COMPANIES_LIST:
         searched_products.extend(
             company.api.search(search_params)
         )
     return jsonify(
         {
-            'payload': list(map(lambda product: product.to_json(), searched_products))
+            'payload': list(map(lambda product: product.to_json(), searched_products[:results_size]))
         }
     )
