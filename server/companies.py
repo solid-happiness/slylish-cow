@@ -1,5 +1,6 @@
-from abc import ABC
 from typing import List, NamedTuple
+from requests.models import Response
+from requests import Session
 
 from server.products import Product
 
@@ -13,6 +14,16 @@ class Company(NamedTuple):
     title: str
     main_url: str
     logo: str
+
+    @classmethod
+    def get_session(cls):
+        if not hasattr(cls, '_session'):
+            cls._session = Session()
+        return cls._session
+
+    @classmethod
+    def get(cls, query: str) -> Response:
+        return cls.get_session().get(query)
 
     def serach(params: SearchParams) -> List[Product]:
         raise NotImplementedError

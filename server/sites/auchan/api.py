@@ -1,8 +1,8 @@
 from typing import List
+from itertools import chain
+
 from server.products import Product
 from server.companies import Company, SearchParams
-import requests
-from itertools import chain
 
 
 class AuchanApi(Company):
@@ -12,7 +12,7 @@ class AuchanApi(Company):
 
     @classmethod
     def search(cls, params: SearchParams) -> List[Product]:
-        response = requests.get(
+        response = cls.get(
             f'https://www.auchan.ru/v1/search?merchantId=1&query={params.query}'
         )
         items = response.json().get('items')
@@ -26,7 +26,7 @@ class AuchanApi(Company):
         for item in items:
             item_code = item['code']
 
-            response = requests.get(
+            response = cls.get(
                 f"https://www.auchan.ru/v1/catalog/product-detail?code={item_code}&merchantId=1"
             )
             description = response.json()['description']['content']

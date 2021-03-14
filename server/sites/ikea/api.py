@@ -1,4 +1,3 @@
-import requests
 from typing import List
 
 from server.products import Product
@@ -12,7 +11,7 @@ class IkeaApi(Company):
 
     @classmethod
     def search(cls, params: SearchParams) -> List[Product]:
-        response = requests.get(
+        response = cls.get(
             f'https://sik.search.blue.cdtapps.com/ru/ru/search-result-page?q={params.query}&size={params.size}&columns=4'
         )
         search_result = response.json().get('searchResultPage')

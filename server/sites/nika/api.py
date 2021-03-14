@@ -1,6 +1,5 @@
 from typing import List
 
-import requests
 from server.companies import Company, SearchParams
 from server.products import Product
 
@@ -12,7 +11,7 @@ class NikaApi(Company):
 
     @classmethod
     def search(cls, params: SearchParams) -> List[Product]:
-        r = requests.get(
+        r = cls.get(
             f'https://api.hosting.ue0.ru/v5/Catalog/Goods/Search?q={params.query}&take={params.size}'
         )
 

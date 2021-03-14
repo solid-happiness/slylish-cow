@@ -1,6 +1,5 @@
 from typing import List
 
-import requests
 from server.common.utils import parse_float
 from server.companies import Company, SearchParams
 from server.products import Product
@@ -13,7 +12,7 @@ class LacosteApi(Company):
 
     @classmethod
     def search(cls, params: SearchParams) -> List[Product]:
-        response = requests.get(
+        response = cls.get(
             f'https://lacoste.ru/api/catalog.php?q={params.query}&perPage={params.size}'
         )
         items = response.json().get('list', [])
@@ -22,7 +21,7 @@ class LacosteApi(Company):
         for item in items:
             item_code = item['code']
 
-            response = requests.get(
+            response = cls.get(
                 f"https://lacoste.ru/api/catalog.php?ELEMENT_CODE={item_code}"
             )
             description = response.json()['item']['catDesc']

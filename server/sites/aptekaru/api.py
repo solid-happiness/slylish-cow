@@ -1,7 +1,5 @@
-import re
 from typing import List
 
-import requests
 from server.common.utils import clean_html
 from server.companies import Company, SearchParams
 from server.products import Product
@@ -14,7 +12,7 @@ class AptekaruApi(Company):
 
     @classmethod
     def search(cls, params: SearchParams) -> List[Product]:
-        response = requests.get(
+        response = cls.get(
             f'https://api.apteka.ru/Search/ByPhrase?phrase={params.query}&pageSize={params.size}'
         )
         try:
@@ -30,7 +28,7 @@ class AptekaruApi(Company):
             unique_info = item.get('uniqueItemInfo')
             item_id = item['id']
 
-            response = requests.get(
+            response = cls.get(
                 f"https://api.apteka.ru/Item/Info?id={item_id}/"
             )
             description = response.json().get('genDesc', '')
