@@ -2,12 +2,16 @@ import requests
 from typing import List
 
 from server.products import Product
-from server.companies import SearchApi, SearchParams
+from server.companies import Company, SearchParams
 
 
-class IkeaApi(SearchApi):
+class IkeaApi(Company):
+    title = 'Ikea'
+    main_url = 'https://www.ikea.com/'
+    logo = '/companies/ikea/img/logo.png'
 
-    def search(params: SearchParams) -> List[Product]:
+    @classmethod
+    def search(cls, params: SearchParams) -> List[Product]:
         response = requests.get(
             f'https://sik.search.blue.cdtapps.com/ru/ru/search-result-page?q={params.query}&size={params.size}&columns=4'
         )
@@ -27,6 +31,6 @@ class IkeaApi(SearchApi):
                 image_url=item['product']['mainImageUrl'],
                 product_url=item['product']['pipUrl'],
                 description=item['product']['typeName'],
-                site_logo='/companies/ikea/img/logo.png'
+                site_logo=cls.logo,
             ) for item in items
         ]

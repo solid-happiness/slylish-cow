@@ -3,7 +3,7 @@ import requests
 from typing import List
 
 from server.products import Product
-from server.companies import SearchApi, SearchParams
+from server.companies import Company, SearchParams
 
 
 def clean_html(raw_html):
@@ -12,9 +12,13 @@ def clean_html(raw_html):
     return cleantext
 
 
-class AptekaruApi(SearchApi):
+class AptekaruApi(Company):
+    title = 'Apteka.ru'
+    main_url = 'https://apteka.ru'
+    logo = '/companies/aptekaru/img/logo.png'
 
-    def search(params: SearchParams) -> List[Product]:
+    @classmethod
+    def search(cls, params: SearchParams) -> List[Product]:
         response = requests.get(
             f'https://api.apteka.ru/Search/ByPhrase?phrase={params.query}&pageSize={params.size}'
         )
@@ -48,7 +52,7 @@ class AptekaruApi(SearchApi):
                     image_url=item['photos'][0]['original'],
                     product_url=f"https://apteka.ru/product/{item_id}/",
                     description=description,
-                    site_logo='/companies/aptekaru/img/logo.png'
+                    site_logo=cls.logo,
                 )
             )
 

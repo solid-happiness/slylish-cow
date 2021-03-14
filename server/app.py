@@ -10,11 +10,11 @@ from server.sites.lacoste.api import LacosteApi
 from server.sites.nika.api import NikaApi
 
 COMPANIES_LIST: List[Company] = [
-    Company('Ikea', 'https://www.ikea.com/', IkeaApi),
-    Company('Lacoste', 'https://lacoste.ru', LacosteApi),
-    Company('Auchan', 'https://auchan.ru', AuchanApi),
-    Company('Aptekaru', 'https://apteka.ru', AptekaruApi),
-    Company('Nika', 'https://nikamebelopt.ru', NikaApi),
+    IkeaApi,
+    LacosteApi,
+    AuchanApi,
+    AptekaruApi,
+    NikaApi,
 ]
 
 
@@ -32,7 +32,7 @@ def search_product():
     search_params = SearchParams(query=query, size=results_size)
     for company in COMPANIES_LIST:
         searched_products.extend(
-            company.api.search(search_params)
+            company.search(search_params)
         )
 
     return jsonify({

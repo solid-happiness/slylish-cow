@@ -9,16 +9,13 @@ class SearchParams(NamedTuple):
     size: int
 
 
-class SearchApi(ABC):
-
-    def search(params: SearchParams) -> List[Product]:
-        raise NotImplementedError
-
-
 class Company(NamedTuple):
     title: str
-    main_image_url: str
-    api: SearchApi
+    main_url: str
+    logo: str
+
+    def serach(params: SearchParams) -> List[Product]:
+        raise NotImplementedError
 
     def __eq__(self, another):
         if not issubclass(type(another, Company)):

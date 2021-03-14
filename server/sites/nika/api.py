@@ -1,13 +1,17 @@
 from typing import List
 
 import requests
-from server.companies import SearchApi, SearchParams
+from server.companies import Company, SearchParams
 from server.products import Product
 
 
-class NikaApi(SearchApi):
+class NikaApi(Company):
+    title = 'Nika'
+    main_url = 'https://nikamebelopt.ru'
+    logo = '/companies/nika/img/logo.png'
 
-    def search(params: SearchParams) -> List[Product]:
+    @classmethod
+    def search(cls, params: SearchParams) -> List[Product]:
         r = requests.get(
             f'https://api.hosting.ue0.ru/v5/Catalog/Goods/Search?q={params.query}&take={params.size}'
         )
@@ -21,6 +25,6 @@ class NikaApi(SearchApi):
                 image_url=item['images']['main'],
                 product_url=f"https://nikamebelopt.ru/catalog/{item['group']['slug']}/{item['slug']}/",
                 description=item['additional_properties']['description'],
-                site_logo='/companies/nika/img/logo.png'
+                site_logo=cls.logo
             ) for item in items
         ]

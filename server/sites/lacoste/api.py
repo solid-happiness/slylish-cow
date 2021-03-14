@@ -1,19 +1,23 @@
 from typing import List
 from server.products import Product
-from server.companies import SearchApi, SearchParams
+from server.companies import Company, SearchParams
 import requests
 import re
 
 
-class LacosteApi(SearchApi):
+class LacosteApi(Company):
+    title = 'Lacoste'
+    main_url = 'https://lacoste.ru'
+    logo = '/companies/lacoste/img/logo.png'
 
-    def search(params: SearchParams) -> List[Product]:
+    @classmethod
+    def search(cls, params: SearchParams) -> List[Product]:
         response = requests.get(
             f'https://lacoste.ru/api/catalog.php?q={params.query}&perPage={params.size}'
         )
         items = response.json().get('list', [])
 
-        result_items = []
+        result_items: List[Product] = []
         for item in items:
             item_code = item['code']
 
@@ -29,7 +33,7 @@ class LacosteApi(SearchApi):
                     image_url=f"https:{item['images'][0]}",
                     product_url=f"https://lacoste.ru/catalog/{item['sec_code']}/{item_code}/",
                     description=description,
-                    site_logo='/companies/lacoste/img/logo.png'
+                    site_logo=cls.logo,
                 )
             )
 

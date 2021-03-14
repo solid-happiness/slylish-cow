@@ -1,13 +1,17 @@
 from typing import List
 from server.products import Product
-from server.companies import SearchApi, SearchParams
+from server.companies import Company, SearchParams
 import requests
 from itertools import chain
 
 
-class AuchanApi(SearchApi):
+class AuchanApi(Company):
+    title = 'Auchan'
+    main_url = 'https://auchan.ru'
+    logo = '/companies/auchan/img/logo.png'
 
-    def search(params: SearchParams) -> List[Product]:
+    @classmethod
+    def search(cls, params: SearchParams) -> List[Product]:
         response = requests.get(
             f'https://www.auchan.ru/v1/search?merchantId=1&query={params.query}'
         )
@@ -34,7 +38,7 @@ class AuchanApi(SearchApi):
                     image_url=f"https://www.auchan.ru/files/compressed/{item['image']['id']}/",
                     product_url=f"https://www.auchan.ru/product/{item['code']}/",
                     description=description,
-                    site_logo='/companies/auchan/img/logo.png'
+                    site_logo=cls.logo,
                 )
             )
 
