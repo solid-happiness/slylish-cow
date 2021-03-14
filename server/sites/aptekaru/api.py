@@ -1,15 +1,10 @@
 import re
-import requests
 from typing import List
 
-from server.products import Product
+import requests
+from server.common.utils import clean_html
 from server.companies import Company, SearchParams
-
-
-def clean_html(raw_html):
-    cleanr = re.compile('<.*?>')
-    cleantext = re.sub(cleanr, '', raw_html)
-    return cleantext
+from server.products import Product
 
 
 class AptekaruApi(Company):

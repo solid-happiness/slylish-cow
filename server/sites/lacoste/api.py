@@ -1,8 +1,9 @@
 from typing import List
-from server.products import Product
-from server.companies import Company, SearchParams
+
 import requests
-import re
+from server.common.utils import parse_float
+from server.companies import Company, SearchParams
+from server.products import Product
 
 
 class LacosteApi(Company):
@@ -29,7 +30,7 @@ class LacosteApi(Company):
             result_items.append(
                 Product(
                     title=item['name'],
-                    price=float(re.findall(r'\d+', item['prices']['current'].replace(' ', ''))[0]),
+                    price=parse_float(item['prices']['current']),
                     image_url=f"https:{item['images'][0]}",
                     product_url=f"https://lacoste.ru/catalog/{item['sec_code']}/{item_code}/",
                     description=description,
