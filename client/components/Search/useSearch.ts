@@ -6,11 +6,13 @@ import { debounce } from 'throttle-debounce';
 import sleep from 'sleep-promise';
 
 import { Product } from 'client/typings';
+import { Filter } from './constants';
 import { stub } from './stub';
 
 export const useSearch = (value: string) => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<string | Product[]>([]);
+  const [filter, setFilter] = useState<Filter>(Filter.PRICE_ASC);
 
   const state = useLatest({ value });
 
@@ -47,5 +49,7 @@ export const useSearch = (value: string) => {
     loading,
     load,
     products,
+    filter,
+    setFilter,
   };
 };

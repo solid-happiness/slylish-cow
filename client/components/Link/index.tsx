@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef, RefObject } from 'react';
 import cx from 'clsx';
 import { makeStyles } from '@material-ui/core';
 
@@ -27,15 +27,25 @@ type Props = {
   url?: string;
   target?: '_blank';
   className?: string;
+  onClick: () => unknown;
+  ref?: any;
 };
 
-export const Link: React.FC<Props> = ({ url, children, target, className }) => {
-  const s = useStyles();
-  const Component = url ? 'a' : 'button';
+export const Link: React.FC<Props> = forwardRef(
+  ({ url, children, target, className, onClick }, ref) => {
+    const s = useStyles();
+    const Component = url ? 'a' : 'button';
 
-  return (
-    <Component className={cx(s.link, className)} href={url} target={target}>
-      {children}
-    </Component>
-  );
-};
+    return (
+      <Component
+        ref={ref as any}
+        className={cx(s.link, className)}
+        href={url}
+        target={target}
+        onClick={onClick}
+      >
+        {children}
+      </Component>
+    );
+  }
+);

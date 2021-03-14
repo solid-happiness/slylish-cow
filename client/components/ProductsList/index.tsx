@@ -4,9 +4,11 @@ import { map } from 'ramda';
 import { makeStyles, Grow, Fade, Typography } from '@material-ui/core';
 
 import { Product } from 'client/typings';
+import { ProductCard } from 'client/components/ProductCard';
+import { Filter } from 'client/components/Search/constants';
 
 import { Stub } from './Stub';
-import { ProductCard } from '../ProductCard';
+import { sortProducts } from './sort';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -17,6 +19,7 @@ const useStyles = makeStyles((theme) => ({
     justifyItems: 'center',
     gridRowGap: theme.spacing(4),
     marginTop: theme.spacing(4),
+    position: 'relative',
   },
   empty: {
     grid: '1fr / 1fr',
@@ -27,9 +30,16 @@ type Props = {
   input: string;
   loading: boolean;
   products: string | Product[];
+  filter: Filter;
 };
 
-export const ProductsList: React.FC<Props> = ({ input, loading, products }) => {
+export const ProductsList: React.FC<Props> = ({
+  input,
+  loading,
+  filter,
+  products,
+  children,
+}) => {
   const s = useStyles();
   if (!input) {
     return null;
@@ -60,11 +70,12 @@ export const ProductsList: React.FC<Props> = ({ input, loading, products }) => {
   return (
     <Grow in={!loading}>
       <section className={s.root}>
+        {children}
         {map(
           (product) => (
             <ProductCard key={product.productUrl} product={product} />
           ),
-          products
+          sortProducts(filter, products)
         )}
       </section>
     </Grow>

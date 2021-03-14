@@ -3,8 +3,10 @@ import { useMount } from 'react-use';
 import { makeStyles, Container, TextField } from '@material-ui/core';
 
 import { Footer } from 'client/components/Footer';
+import { ProductsList } from 'client/components/ProductsList';
+
+import { Filters } from './Filters';
 import { Background } from './Background';
-import { ProductsList } from '../ProductsList';
 import { useSearch } from './useSearch';
 
 const useStyles = makeStyles((theme) => ({
@@ -42,7 +44,7 @@ export const Search: React.FC = () => {
   const [value, setValue] = useState('');
   const input = useRef<HTMLInputElement>();
 
-  const { loading, load, products } = useSearch(value);
+  const { loading, load, products, filter, setFilter } = useSearch(value);
 
   useMount(() => {
     setTimeout(() => {
@@ -81,7 +83,14 @@ export const Search: React.FC = () => {
             }}
           />
         </div>
-        <ProductsList input={value} loading={loading} products={products} />
+        <ProductsList
+          input={value}
+          loading={loading}
+          filter={filter}
+          products={products}
+        >
+          <Filters products={products} filter={filter} setFilter={setFilter} />
+        </ProductsList>
       </Container>
       <Footer />
     </Background>
