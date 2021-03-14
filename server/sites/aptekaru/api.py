@@ -1,6 +1,9 @@
 import re
-
 import requests
+from typing import List
+
+from server.products import Product
+from server.companies import SearchApi, SearchParams
 
 
 def clean_html(raw_html):
@@ -9,39 +12,43 @@ def clean_html(raw_html):
     return cleantext
 
 
-def search(query):
-    response = requests.get(
-        f'https://api.apteka.ru/Search/ByPhrase?phrase={query}&pageSize=3'
-    )
-    try:
-        items = response.json().get('result')
-    except AttributeError:
-        return []
+class AptekaruApi(SearchApi):
 
-    if not items:
-        return []
-
-    result_items = []
-    for item in items:
-        unique_info = item.get('uniqueItemInfo')
-        item_id = item['id']
-
+    def search(params: SearchParams) -> List[Product]:
         response = requests.get(
-            f"https://api.apteka.ru/Item/Info?id={item_id}/"
+            f'https://api.apteka.ru/Search/ByPhrase?phrase={params.query}&pageSize={params.size}'
         )
-        description = response.json().get('genDesc', '')
+        try:
+            items = response.json().get('result')
+        except AttributeError:
+            return []
 
-        title = clean_html(item['tradeName'])
+        if not items:
+            return []
 
-        if unique_info:
-            title = unique_info['goodNaming']['tradeName']
+        result_items: List[Product] = []
+        for item in items:
+            unique_info = item.get('uniqueItemInfo')
+            item_id = item['id']
 
-        result_items.append({
-            'title': title,
-            'price': item['minPrice'],
-            'image_url': item['photos'][0]['original'],
-            'product_url': f"https://apteka.ru/product/{item_id}/",
-            'description': description
-        })
+            response = requests.get(
+                f"https://api.apteka.ru/Item/Info?id={item_id}/"
+            )
+            description = response.json().get('genDesc', '')
 
-    return result_items
+            title = clean_html(item['tradeName'])
+
+            if unique_info:
+                title = unique_info['goodNaming']['tradeName']
+
+            result_items.append(
+                Product(
+                    title=title,
+                    price=item['minPrice'],
+                    image_url=item['photos'][0]['original'],
+                    product_url=f"https://apteka.ru/product/{item_id}/",
+                    description=description,
+                )
+            )
+
+        return result_items

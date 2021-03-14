@@ -1,20 +1,29 @@
-def ikea(query):
-    response = requests.get(
-        f'https://sik.search.blue.cdtapps.com/ru/ru/search-result-page?q={query}&size=3&columns=4'
-    )
-    search_result = response.json().get('searchResultPage')
+import requests
+from typing import List
 
-    if not search_result:
-        return []
+from server.products import Product
+from server.companies import SearchApi, SearchParams
 
-    items = search_result['products']['main']['items']
 
-    return [
-        {
-            'title': item['product']['name'],
-            'price': item['product']['priceNumeral'],
-            'image_url': item['product']['mainImageUrl'],
-            'product_url': item['product']['pipUrl'],
-            'description': item['product']['typeName']
-        } for item in items
-    ]
+class IkeaApi(SearchApi):
+    
+    def search(params: SearchParams) -> List[Product]:
+        response = requests.get(
+            f'https://sik.search.blue.cdtapps.com/ru/ru/search-result-page?q={params.query}&size={params.size}&columns=4'
+        )
+        search_result = response.json().get('searchResultPage')
+
+        if not search_result:
+            return []
+
+        items = search_result['products']['main']['items']
+        print(items)
+        return [
+            Product(
+                title=item['product']['name'],
+                price=item['product']['priceNumeral'],
+                image_url=item['product']['mainImageUrl'],
+                product_url=item['product']['pipUrl'],
+                description=item['product']['typeName']
+            ) for item in items
+        ]
