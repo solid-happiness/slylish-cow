@@ -16,7 +16,6 @@ const useStyles = makeStyles(() => ({
     overflow: 'hidden',
   },
   main: {
-    background: '#f7f9fa',
     width: '100%',
     minHeight: 'calc(100vh - 74px)',
     marginTop: '74px',

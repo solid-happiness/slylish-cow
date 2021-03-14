@@ -70,10 +70,10 @@ export const Background: React.FC = ({ children }) => {
   return (
     <section className={s.root}>
       <div className={s.images} id="search-background">
-        <img className={s.background} src="/search/b1.jpg" />
-        <img className={s.background} src="/search/b2.jpg" />
-        <img className={s.background} src="/search/b3.webp" />
-        <img className={s.background} src="/search/b4.jpg" />
+        <img className={s.background} src="/search/b1.jpg" alt="background" />
+        <img className={s.background} src="/search/b2.jpg" alt="background" />
+        <img className={s.background} src="/search/b3.webp" alt="background" />
+        <img className={s.background} src="/search/b4.jpg" alt="background" />
       </div>
       {children}
     </section>

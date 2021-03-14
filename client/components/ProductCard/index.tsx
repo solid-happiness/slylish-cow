@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
+import { useMount } from 'react-use';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   makeStyles,
@@ -10,8 +11,10 @@ import {
   Avatar,
   IconButton,
   Typography,
+  Tooltip,
 } from '@material-ui/core';
 import { red } from '@material-ui/core/colors';
+import Clipboard from 'clipboard';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
@@ -58,6 +61,9 @@ const useStyles = makeStyles((theme) => ({
       zIndex: 999,
     },
   },
+  tooltip: {
+    padding: '2px 4px',
+  },
 }));
 
 type Props = {
@@ -66,8 +72,23 @@ type Props = {
 
 export const ProductCard: React.FC<Props> = ({ product }) => {
   const s = useStyles();
+  const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
+
   const favoritesMap = useSelector(getFavoritesMap);
+  const share = useRef<HTMLButtonElement>();
+
+  useMount(() => {
+    const clipboard = new Clipboard(share.current!, {
+      text: () => product.productUrl,
+    });
+
+    clipboard.on('success', () => {
+      setOpen(true);
+
+      setTimeout(() => setOpen(false), 2000);
+    });
+  });
 
   return (
     <a className={s.link} href={product.productUrl} target="_blank">
@@ -97,9 +118,26 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
               color={favoritesMap[product.productUrl] ? 'secondary' : undefined}
             />
           </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
+          <Tooltip
+            open={open}
+            title={
+              <Typography className={s.tooltip} variant="body2">
+                Ссылка скопирована в буфер обмена
+              </Typography>
+            }
+          >
+            <IconButton
+              aria-label="скопировать ссылку"
+              ref={share as any}
+              onClick={(event: React.PointerEvent<HTMLButtonElement>) => {
+                event.preventDefault();
+                event.stopPropagation();
+              }}
+              component="button"
+            >
+              <ShareIcon />
+            </IconButton>
+          </Tooltip>
         </CardActions>
       </Card>
     </a>

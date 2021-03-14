@@ -19,7 +19,7 @@ const App = (props: AppProps) => {
   }, []);
 
   return (
-    <React.Fragment>
+    <>
       <Head>
         <title>stylish cow</title>
         <meta
@@ -33,7 +33,7 @@ const App = (props: AppProps) => {
           <Component {...pageProps} />
         </Provider>
       </ThemeProvider>
-    </React.Fragment>
+    </>
   );
 };
 
