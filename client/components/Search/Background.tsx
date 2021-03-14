@@ -18,6 +18,7 @@ const useStyles = makeStyles(() => ({
     width: '100%',
     objectFit: 'cover',
     height: 'calc(100vh - 74px)',
+    pointerEvents: 'none',
   },
   background: {
     position: 'absolute',
@@ -30,6 +31,7 @@ const useStyles = makeStyles(() => ({
     animationTimingFunction: 'ease-in-out',
     animationIterationCount: 'infinite',
     animationDuration: '16s',
+    pointerEvents: 'none',
   },
   '@global': {
     '#search-background img:nth-of-type(1)': {
