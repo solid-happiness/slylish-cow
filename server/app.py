@@ -1,18 +1,20 @@
-from flask import Flask, jsonify, request
 from typing import List
+
+from flask import Flask, jsonify, request
 
 from server.companies import Company, SearchParams
 from server.sites.aptekaru.api import AptekaruApi
 from server.sites.auchan.api import AuchanApi
-from server.sites.lacoste.api import LacosteApi
 from server.sites.ikea.api import IkeaApi
-
+from server.sites.lacoste.api import LacosteApi
+from server.sites.nika.api import NikaApi
 
 COMPANIES_LIST: List[Company] = [
     Company('Ikea', 'https://www.ikea.com/', IkeaApi),
     Company('Lacoste', 'https://lacoste.ru', LacosteApi),
     Company('Auchan', 'https://auchan.ru', AuchanApi),
     Company('Aptekaru', 'https://apteka.ru', AptekaruApi),
+    Company('Nika', 'https://nikamebelopt.ru', NikaApi),
 ]
 
 
