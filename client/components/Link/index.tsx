@@ -1,4 +1,4 @@
-import React, { forwardRef, RefObject } from 'react';
+import React, { forwardRef } from 'react';
 import cx from 'clsx';
 import { makeStyles } from '@material-ui/core';
 
@@ -27,7 +27,7 @@ type Props = {
   url?: string;
   target?: '_blank';
   className?: string;
-  onClick: () => unknown;
+  onClick?: () => unknown;
   ref?: any;
 };
 

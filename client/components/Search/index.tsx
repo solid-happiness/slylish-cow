@@ -23,6 +23,10 @@ const useStyles = makeStyles((theme) => ({
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
     marginTop: theme.spacing(4),
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(2),
+      marginRight: theme.spacing(2),
+    },
   },
   search: {
     width: '100%',

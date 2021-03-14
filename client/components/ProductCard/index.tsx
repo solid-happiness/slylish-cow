@@ -20,12 +20,15 @@ import { toggleFavoriteProduct } from 'client/slices';
 import { getFavoritesMap } from 'client/selectors';
 import { Product } from 'client/typings';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
     width: '100%',
     display: 'flex',
     flexDirection: 'column',
+    [theme.breakpoints.down('sm')]: {
+      maxWidth: 'unset',
+    },
   },
   media: {
     height: 0,

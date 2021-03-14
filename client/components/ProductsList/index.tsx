@@ -20,6 +20,9 @@ const useStyles = makeStyles((theme) => ({
     gridRowGap: theme.spacing(4),
     marginTop: theme.spacing(4),
     position: 'relative',
+    [theme.breakpoints.down('sm')]: {
+      grid: '1fr / 1fr',
+    },
   },
   empty: {
     grid: '1fr / 1fr',

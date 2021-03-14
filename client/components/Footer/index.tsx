@@ -19,10 +19,16 @@ const useStyles = makeStyles((theme) => ({
     gridColumnGap: theme.spacing(2),
     alignItems: 'center',
     justifyItems: 'center',
+    [theme.breakpoints.down('sm')]: {
+      display: 'none',
+    },
   },
   copyright: {
     marginTop: theme.spacing(1),
     textAlign: 'center',
+    [theme.breakpoints.down('sm')]: {
+      marginTop: 0,
+    },
   },
 }));
 
