@@ -26,6 +26,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(2),
+      minHeight: 'unset',
+      paddingTop: theme.spacing(1),
+      paddingBottom: theme.spacing(1),
     },
   },
   search: {
@@ -33,6 +36,10 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: '750px',
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
+    [theme.breakpoints.down('sm')]: {
+      marginTop: theme.spacing(2),
+      marginBottom: theme.spacing(2),
+    },
   },
   label: {
     fontSize: '1.15rem',

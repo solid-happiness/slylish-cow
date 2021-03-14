@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
   toolbar: {
     display: 'flex',
     minHeight: '74px',
+    [theme.breakpoints.down('sm')]: {
+      paddingLeft: 0,
+    },
   },
   logo: {
     flex: 1,

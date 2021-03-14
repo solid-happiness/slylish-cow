@@ -23,7 +23,8 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "bootstrap": "npm i --no-save"
+    "bootstrap": "npm i --no-save",
+    "eslint": "eslint --ext=.js,.jsx,.ts,.tsx"
   },
   "devDependencies": {
     "@types/next": "^9.0.0",

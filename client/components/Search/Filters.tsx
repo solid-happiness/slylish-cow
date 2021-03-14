@@ -6,11 +6,15 @@ import { Product } from 'client/typings';
 import { Link } from 'client/components/Link';
 import { Filter, filtersOptions, filtersNameMap } from './constants';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     position: 'absolute',
     top: '-36px',
     right: '60px',
+    [theme.breakpoints.down('sm')]: {
+      top: '-32px',
+      right: '15px',
+    },
   },
   type: {
     padding: '0 4px',

@@ -28,6 +28,9 @@ const useStyles = makeStyles((theme) => ({
       textDecoration: 'none',
       color: theme.palette.common.black,
     },
+    [theme.breakpoints.down('sm')]: {
+      letterSpacing: 'initial',
+    },
   },
 }));
 
@@ -40,7 +43,7 @@ export const Logo: React.FC<Props> = ({ className }) => {
 
   return (
     <a className={cx(s.link, className)} href="/">
-      <img className={s.logo} src="/logo.gif" />
+      <img className={s.logo} src="/logo.gif" alt="logo" />
       <Typography className={s.title} variant="h6" noWrap>
         stylish cow
       </Typography>
