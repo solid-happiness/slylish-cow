@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
+import { Provider } from 'react-redux';
 
 import Head from 'next/head';
 import { AppProps } from 'next/app';
+import { ThemeProvider, CssBaseline } from '@material-ui/core';
 
-import { ThemeProvider } from '@material-ui/core/styles';
-import CssBaseline from '@material-ui/core/CssBaseline';
-
-import { theme } from '../client/components/theme';
+import { store } from 'client/store';
+import { theme } from 'client/components/theme';
 
 const App = (props: AppProps) => {
   const { Component, pageProps } = props;
@@ -28,8 +28,10 @@ const App = (props: AppProps) => {
         />
       </Head>
       <ThemeProvider theme={theme}>
-        <CssBaseline />
-        <Component {...pageProps} />
+        <Provider store={store}>
+          <CssBaseline />
+          <Component {...pageProps} />
+        </Provider>
       </ThemeProvider>
     </React.Fragment>
   );

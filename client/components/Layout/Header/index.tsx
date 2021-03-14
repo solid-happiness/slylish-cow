@@ -1,11 +1,8 @@
 import React from 'react';
-import {
-  makeStyles,
-  AppBar,
-  Toolbar,
-  Container,
-  Typography,
-} from '@material-ui/core';
+import { makeStyles, AppBar, Toolbar, Container } from '@material-ui/core';
+
+import { Logo } from './Logo';
+import { Favorites } from './Favorites';
 
 const useStyles = makeStyles((theme) => ({
   appBar: {
@@ -18,19 +15,13 @@ const useStyles = makeStyles((theme) => ({
     padding: 0,
   },
   toolbar: {
+    display: 'flex',
     [theme.breakpoints.up('sm')]: {
       minHeight: '74px',
     },
   },
   logo: {
-    width: '90px',
-    height: 'auto',
-    pointerEvents: 'none',
-  },
-  title: {
-    fontWeight: 'bold',
-    letterSpacing: '3px',
-    color: theme.palette.common.black,
+    flex: 1,
   },
 }));
 
@@ -38,13 +29,11 @@ export const Header: React.FC = () => {
   const s = useStyles();
 
   return (
-    <AppBar className={s.appBar} position="static">
+    <AppBar className={s.appBar} position="fixed">
       <Container className={s.container}>
         <Toolbar className={s.toolbar}>
-          <img className={s.logo} src="/logo.gif" />
-          <Typography className={s.title} variant="h6" noWrap>
-            stylish cow
-          </Typography>
+          <Logo className={s.logo} />
+          <Favorites />
         </Toolbar>
       </Container>
     </AppBar>

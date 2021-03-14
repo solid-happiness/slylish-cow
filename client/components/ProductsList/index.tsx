@@ -1,6 +1,7 @@
 import React from 'react';
+import cx from 'clsx';
 import { map } from 'ramda';
-import { makeStyles, Grow, Fade } from '@material-ui/core';
+import { makeStyles, Grow, Fade, Typography } from '@material-ui/core';
 
 import { Product } from 'client/typings';
 
@@ -17,12 +18,15 @@ const useStyles = makeStyles((theme) => ({
     gridRowGap: theme.spacing(4),
     marginTop: theme.spacing(4),
   },
+  empty: {
+    grid: '1fr / 1fr',
+  },
 }));
 
 type Props = {
   input: string;
   loading: boolean;
-  products: Product[];
+  products: string | Product[];
 };
 
 export const ProductsList: React.FC<Props> = ({ input, loading, products }) => {
@@ -36,6 +40,18 @@ export const ProductsList: React.FC<Props> = ({ input, loading, products }) => {
       <Fade in={loading}>
         <section className={s.root}>
           <Stub />
+        </section>
+      </Fade>
+    );
+  }
+
+  if (typeof products === 'string') {
+    return (
+      <Fade in>
+        <section className={cx(s.root, s.empty)}>
+          <Typography variant="body1">
+            По вашему запросу ничего не найдено
+          </Typography>
         </section>
       </Fade>
     );

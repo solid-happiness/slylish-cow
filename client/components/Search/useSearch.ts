@@ -1,5 +1,6 @@
 import { useState, useCallback } from 'react';
 import { useLatest } from 'react-use';
+import { isEmpty } from 'ramda';
 
 import { debounce } from 'throttle-debounce';
 import sleep from 'sleep-promise';
@@ -9,7 +10,7 @@ import { stub } from './stub';
 
 export const useSearch = (value: string) => {
   const [loading, setLoading] = useState(false);
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<string | Product[]>([]);
 
   const state = useLatest({ value });
 
@@ -24,14 +25,19 @@ export const useSearch = (value: string) => {
 
       setLoading(true);
 
-      const result = stub;
       await sleep(3000);
+      const result = stub;
 
       if (input !== state.current.value) {
         return;
       }
 
-      setProducts(result);
+      if (isEmpty(result)) {
+        setProducts('empty');
+      } else {
+        setProducts(result);
+      }
+
       setLoading(false);
     }),
     []

@@ -1,4 +1,5 @@
 import React from 'react';
+import cx from 'clsx';
 import { makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
@@ -10,24 +11,31 @@ const useStyles = makeStyles((theme) => ({
     color: theme.palette.common.black,
     textDecoration: 'none',
     transition: 'background-size .2s',
+    cursor: 'pointer',
+    border: 'none',
+    padding: 0,
+    outline: 'none',
     '&:hover': {
       backgroundSize: '4px 50px',
       color: theme.palette.common.white,
+      textDecoration: 'none',
     },
   },
 }));
 
 type Props = {
-  url: string;
+  url?: string;
   target?: '_blank';
+  className?: string;
 };
 
-export const Link: React.FC<Props> = ({ url, children, target }) => {
+export const Link: React.FC<Props> = ({ url, children, target, className }) => {
   const s = useStyles();
+  const Component = url ? 'a' : 'button';
 
   return (
-    <a className={s.link} href={url} target={target}>
+    <Component className={cx(s.link, className)} href={url} target={target}>
       {children}
-    </a>
+    </Component>
   );
 };
