@@ -25,7 +25,6 @@ class AptekaruApi(Company):
 
         result_items: List[Product] = []
         for item in items:
-            unique_info = item.get('uniqueItemInfo')
             item_id = item['id']
 
             response = cls.get(
@@ -33,14 +32,9 @@ class AptekaruApi(Company):
             )
             description = response.json().get('genDesc', '')
 
-            title = clean_html(item['tradeName'])
-
-            if unique_info:
-                title = unique_info['goodNaming']['tradeName']
-
             result_items.append(
                 Product(
-                    title=title,
+                    title=clean_html(item['tradeName']),
                     price=item['minPrice'],
                     image_url=item['photos'][0]['original'],
                     product_url=f"https://apteka.ru/product/{item_id}/",
