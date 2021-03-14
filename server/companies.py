@@ -6,6 +6,7 @@ from server.sites.auchan.api import AuchanApi
 from server.sites.ikea.api import IkeaApi
 from server.sites.lacoste.api import LacosteApi
 from server.sites.nika.api import NikaApi
+from server.sites.rivegauche.api import RiveGaucheApi
 from server.sites.samsung.api import SamsungApi
 
 COMPANIES_LIST: List[Company] = [
@@ -14,5 +15,6 @@ COMPANIES_LIST: List[Company] = [
     AuchanApi,
     AptekaruApi,
     NikaApi,
-    SamsungApi
+    SamsungApi,
+    RiveGaucheApi,
 ]
