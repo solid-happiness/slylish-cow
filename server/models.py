@@ -37,6 +37,12 @@ class Company(NamedTuple):
         if not hasattr(cls, '_session'):
             cls._session = Session()
         return cls._session
+    
+    @classmethod
+    def get_id(cls):
+        if not hasattr(cls, '_id'):
+            cls._id = hash(cls) % 1000
+        return cls._id
 
     @classmethod
     def get(cls, query: str) -> Response:
@@ -45,10 +51,19 @@ class Company(NamedTuple):
     def serach(params: SearchParams) -> List[Product]:
         raise NotImplementedError
 
+    @classmethod
+    def to_dict(cls):
+        return {
+            'id': cls.get_id(),
+            'title': cls.title,
+            'mainUrl': cls.main_url,
+            'logo': cls.logo,
+        }
+
     def __eq__(self, another):
         if not issubclass(type(another, Company)):
             return False
         return self.title == another.title and self.main_image_url == another.main_image_url
     
     def __hash__(self):
-        return hash(self.title + self.main_image_url)
+        return hash(self.title + self.main_image_url + self.main_url)

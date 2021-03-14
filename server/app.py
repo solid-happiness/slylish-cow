@@ -26,3 +26,10 @@ def search_product():
     return jsonify({
         'payload': list(map(lambda product: product.to_json(), searched_products[:results_size * len(COMPANIES_LIST)]))
     })
+
+
+@app.route('/api/companies', methods=['GET'])
+def get_companies():
+    return jsonify({
+        'payload': [company.to_dict() for company in COMPANIES_LIST]
+    })
