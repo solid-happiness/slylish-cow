@@ -17,8 +17,14 @@ def search_product():
         return jsonify({'status': 'error', 'message': 'EMPTY_QUERY'})
     companies_ids = request.args.get('apis')
     if companies_ids:
-        companies_ids = list(map(lambda company_id: int(company_id), companies_ids.split(',')))
-        companies_to_search = filter(lambda company: company.get_id() in companies_ids, COMPANIES_LIST)
+        companies_ids = list(map(
+            lambda company_id: int(company_id),
+            companies_ids.split(',')
+        ))
+        companies_to_search = filter(
+            lambda company: company.get_id() in companies_ids,
+            COMPANIES_LIST
+        )
     else:
         companies_to_search = COMPANIES_LIST
 
@@ -29,8 +35,20 @@ def search_product():
             company.search(search_params)
         )
 
+    def query_match(title):
+        return query.lower() in map(lambda w: w.lower(), title.split())
+
+    searched_products = [
+        p for p in searched_products if query_match(p.title)
+    ] + [
+        p for p in searched_products if not query_match(p.title)
+    ]
+
     return jsonify({
-        'payload': list(map(lambda product: product.to_json(), searched_products[:results_size * len(COMPANIES_LIST)]))
+        'payload': list(map(
+            lambda product: product.to_json(),
+            searched_products[:results_size * len(COMPANIES_LIST)]
+        ))
     })
 
 
