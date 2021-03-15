@@ -5,7 +5,7 @@ import { makeStyles, Grow, Fade, Typography } from '@material-ui/core';
 
 import { Product } from 'client/typings';
 import { ProductCard } from 'client/components/ProductCard';
-import { Filter } from 'client/components/Search/constants';
+import { SortOption } from 'client/components/Search/constants';
 
 import { Stub } from './Stub';
 import { sortProducts } from './sort';
@@ -33,13 +33,13 @@ type Props = {
   input: string;
   loading: boolean;
   products: string | Product[];
-  filter: Filter;
+  sortOption: SortOption;
 };
 
 export const ProductsList: React.FC<Props> = ({
   input,
   loading,
-  filter,
+  sortOption,
   products,
   children,
 }) => {
@@ -78,7 +78,7 @@ export const ProductsList: React.FC<Props> = ({
           (product) => (
             <ProductCard key={product.productUrl} product={product} />
           ),
-          sortProducts(filter, products)
+          sortProducts(sortOption, products)
         )}
       </section>
     </Grow>

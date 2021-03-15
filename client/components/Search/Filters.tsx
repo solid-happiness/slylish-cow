@@ -1,68 +1,88 @@
-import React, { useRef, useState } from 'react';
-import { map, isEmpty } from 'ramda';
-import { makeStyles, Menu, MenuItem, Typography } from '@material-ui/core';
+import React from 'react';
+import {
+  makeStyles,
+  List,
+  ListItem,
+  ListItemAvatar,
+  ListItemText,
+  Avatar,
+  Typography,
+  Checkbox,
+} from '@material-ui/core';
+import { map } from 'ramda';
 
-import { Product } from 'client/typings';
-import { Link } from 'client/components/Link';
-import { Filter, filtersOptions, filtersNameMap } from './constants';
+import { Company } from 'client/typings';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    position: 'absolute',
-    top: '-36px',
-    right: '60px',
-    [theme.breakpoints.down('sm')]: {
-      top: '-32px',
-      right: '15px',
+    borderBlock: 8,
+    zIndex: 1,
+    background: '#f7f9fa',
+    borderRadius: '16px',
+    boxShadow: theme.shadows[1],
+    margin: `${theme.spacing(4)}px 0`,
+    [theme.breakpoints.down('md')]: {
+      display: 'none',
     },
   },
-  type: {
-    padding: '0 4px',
+  title: {
+    margin: theme.spacing(2),
+    marginBottom: 0,
+  },
+  primary: {
+    display: 'flex',
+    alignItems: 'center',
+  },
+  text: {
+    flex: 1,
   },
 }));
 
 type Props = {
-  products: string | Product[];
-  filter: Filter;
-  setFilter: (filter: Filter) => unknown;
+  companies: Company[];
+  filters: Record<number | string, boolean>;
+  toggleFilter: (id: number | string) => void;
 };
 
-export const Filters: React.FC<Props> = ({ filter, products, setFilter }) => {
+export const Filters: React.FC<Props> = ({
+  companies,
+  filters,
+  toggleFilter,
+}) => {
   const s = useStyles();
-  const [open, setOpen] = useState(false);
-  const filterRef = useRef();
-
-  if (typeof products === 'string' || isEmpty(products)) {
-    return null;
-  }
 
   return (
-    <Typography component="div" variant="body1" className={s.root}>
-      Сортировать по{' '}
-      <Link ref={filterRef} onClick={() => setOpen(true)} className={s.type}>
-        <Typography variant="body1">{filtersNameMap[filter]}</Typography>
-      </Link>
-      <Menu
-        anchorEl={filterRef.current}
-        keepMounted
-        open={open}
-        onClose={() => setOpen(false)}
-      >
+    <div className={s.root}>
+      <Typography variant="body1" className={s.title}>
+        Искать среди следующих <br /> партнёров:
+      </Typography>
+      <List dense>
         {map(
-          (filter) => (
-            <MenuItem
-              key={filter.name}
-              onClick={() => {
-                setOpen(false);
-                setFilter(filter.value);
-              }}
-            >
-              {filter.name}
-            </MenuItem>
+          (company) => (
+            <ListItem key={company.id}>
+              <ListItemAvatar>
+                <Avatar src={company.logo} />
+              </ListItemAvatar>
+              <ListItemText
+                primary={
+                  <div className={s.primary}>
+                    <p className={s.text}>{company.title}</p>
+                    <div>
+                      <Checkbox
+                        color="primary"
+                        checked={!!filters[company.id]}
+                        onChange={() => toggleFilter(company.id)}
+                      />
+                    </div>
+                  </div>
+                }
+                primaryTypographyProps={{ component: 'div' }}
+              />
+            </ListItem>
           ),
-          filtersOptions
+          companies
         )}
-      </Menu>
-    </Typography>
+      </List>
+    </div>
   );
 };

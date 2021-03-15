@@ -1,7 +1,7 @@
 import { prop, sort, sortBy } from 'ramda';
 
 import { Product } from 'client/typings';
-import { Filter } from 'client/components/Search/constants';
+import { SortOption } from 'client/components/Search/constants';
 
 const unifySign = (result: number) => {
   if (result < 0) {
@@ -15,13 +15,13 @@ const unifySign = (result: number) => {
   return 0;
 };
 
-export const sortProducts = (filter: Filter, products: Product[]) => {
-  if (filter === Filter.NAME) {
+export const sortProducts = (sortOption: SortOption, products: Product[]) => {
+  if (sortOption === SortOption.NAME) {
     return sortBy(prop('title'), products);
   }
 
   return sort((a, b) => {
-    if (filter === Filter.PRICE_ASC) {
+    if (sortOption === SortOption.PRICE_ASC) {
       return unifySign(a.price - b.price);
     }
 

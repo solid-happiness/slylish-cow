@@ -1,18 +1,20 @@
 import React, { useState, useRef } from 'react';
 import { useMount } from 'react-use';
-import { makeStyles, Container, TextField } from '@material-ui/core';
+import { makeStyles, TextField } from '@material-ui/core';
 
 import { Footer } from 'client/components/Footer';
 import { ProductsList } from 'client/components/ProductsList';
+import { Company } from 'client/typings';
 
-import { Filters } from './Filters';
+import { Sort } from './Sort';
 import { Background } from './Background';
+import { Filters } from './Filters';
 import { useSearch } from './useSearch';
 
 const useStyles = makeStyles((theme) => ({
   container: {
-    minHeight: '196px',
     display: 'flex',
+    minHeight: '196px',
     flexDirection: 'column',
     alignItems: 'center',
     justifyContent: 'center',
@@ -20,11 +22,11 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 1,
     background: '#f7f9fa',
     borderRadius: '16px',
+    boxShadow: theme.shadows[1],
     paddingTop: theme.spacing(4),
     paddingBottom: theme.spacing(4),
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
-    boxShadow: theme.shadows[1],
     [theme.breakpoints.down('sm')]: {
       marginLeft: theme.spacing(2),
       marginRight: theme.spacing(2),
@@ -32,13 +34,22 @@ const useStyles = makeStyles((theme) => ({
       paddingTop: theme.spacing(1),
       paddingBottom: theme.spacing(1),
     },
+    justifySelf: 'stretch',
+    alignSelf: 'baseline',
+    [theme.breakpoints.up('md')]: {
+      marginRight: theme.spacing(4),
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '100%',
+      marginLeft: theme.spacing(4),
+      marginRight: theme.spacing(4),
+    },
   },
   search: {
     width: '100%',
-    maxWidth: '750px',
-    marginTop: theme.spacing(4),
-    marginBottom: theme.spacing(4),
+    padding: `${theme.spacing(4)}px ${theme.spacing(8)}px`,
     [theme.breakpoints.down('sm')]: {
+      padding: `${theme.spacing(0)}px ${theme.spacing(4)}px`,
       marginTop: theme.spacing(2),
       marginBottom: theme.spacing(2),
     },
@@ -51,13 +62,25 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Search: React.FC = () => {
+type Props = {
+  companies: Company[];
+};
+
+export const Search: React.FC<Props> = ({ companies }) => {
   const s = useStyles();
 
   const [value, setValue] = useState('');
   const input = useRef<HTMLInputElement>();
 
-  const { loading, load, products, filter, setFilter } = useSearch(value);
+  const {
+    loading,
+    load,
+    products,
+    sortOption,
+    setSortOption,
+    filters,
+    toggleFilter,
+  } = useSearch({ value, companies });
 
   useMount(() => {
     setTimeout(() => {
@@ -71,7 +94,12 @@ export const Search: React.FC = () => {
 
   return (
     <Background>
-      <Container maxWidth="md" className={s.container}>
+      <Filters
+        companies={companies}
+        filters={filters}
+        toggleFilter={toggleFilter}
+      />
+      <div className={s.container}>
         <div className={s.search}>
           <TextField
             label="Начните искать товары..."
@@ -92,19 +120,23 @@ export const Search: React.FC = () => {
             value={value}
             onChange={(event) => {
               setValue(event.target.value);
-              load(event.target.value);
+              load(event.target.value, filters);
             }}
           />
         </div>
         <ProductsList
           input={value}
           loading={loading}
-          filter={filter}
+          sortOption={sortOption}
           products={products}
         >
-          <Filters products={products} filter={filter} setFilter={setFilter} />
+          <Sort
+            products={products}
+            sortOption={sortOption}
+            setSortOption={setSortOption}
+          />
         </ProductsList>
-      </Container>
+      </div>
       <Footer />
     </Background>
   );

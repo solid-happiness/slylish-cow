@@ -12,6 +12,10 @@ const useStyles = makeStyles((theme) => ({
     background: '#f7f9fa',
     padding: '10px 15px',
     borderRadius: '8px',
+    [theme.breakpoints.down('md')]: {
+      left: 'calc(50%)',
+      transform: 'translate(-50%)',
+    },
   },
   team: {
     display: 'grid',

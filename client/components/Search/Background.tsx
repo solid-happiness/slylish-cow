@@ -1,15 +1,25 @@
 import React from 'react';
 import { makeStyles } from '@material-ui/core';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
     height: '100%',
     position: 'relative',
-    display: 'flex',
-    alignItems: 'baseline',
-    justifyContent: 'center',
+    display: 'grid',
+    alignItems: 'start',
+    justifyItems: 'center',
     minHeight: 'calc(100vh - 74px)',
+    [theme.breakpoints.up('lg')]: {
+      grid: '1fr / 0.25fr 0.75fr',
+    },
+    [theme.breakpoints.down('md')]: {
+      display: 'flex',
+      position: 'relative',
+    },
+    '@media (min-width: 1800px)': {
+      grid: '1fr / 0.25fr 0.5fr 0.25fr',
+    },
   },
   images: {
     position: 'absolute',
