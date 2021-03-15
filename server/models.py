@@ -1,3 +1,4 @@
+from abc import ABC
 from typing import List, NamedTuple
 from requests.models import Response
 from requests import Session
@@ -27,7 +28,7 @@ class SearchParams(NamedTuple):
     size: int
 
 
-class Company(NamedTuple):
+class Company(ABC):
     title: str
     main_url: str
     logo: str
