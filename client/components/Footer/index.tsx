@@ -16,6 +16,10 @@ const useStyles = makeStyles((theme) => ({
       left: 'calc(50%)',
       transform: 'translate(-50%)',
     },
+    [theme.breakpoints.down('sm')]: {
+      left: 'calc(50%)',
+      transform: 'translate(-50%)',
+    },
   },
   team: {
     display: 'grid',
@@ -33,6 +37,7 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       marginTop: 0,
     },
+    whiteSpace: 'nowrap',
   },
 }));
 

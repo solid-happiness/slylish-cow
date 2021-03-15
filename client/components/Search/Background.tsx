@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
       position: 'relative',
     },
     '@media (min-width: 1800px)': {
-      grid: '1fr / 0.25fr 0.5fr 0.25fr',
+      grid: '1fr / 0.5fr 1fr 0.5fr',
     },
   },
   images: {

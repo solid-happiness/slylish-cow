@@ -27,13 +27,6 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: theme.spacing(4),
     marginTop: theme.spacing(4),
     marginBottom: theme.spacing(4),
-    [theme.breakpoints.down('sm')]: {
-      marginLeft: theme.spacing(2),
-      marginRight: theme.spacing(2),
-      minHeight: 'unset',
-      paddingTop: theme.spacing(1),
-      paddingBottom: theme.spacing(1),
-    },
     justifySelf: 'stretch',
     alignSelf: 'baseline',
     [theme.breakpoints.up('md')]: {
@@ -43,6 +36,12 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       marginLeft: theme.spacing(4),
       marginRight: theme.spacing(4),
+    },
+    [theme.breakpoints.down('sm')]: {
+      marginLeft: theme.spacing(1),
+      marginRight: theme.spacing(1),
+      minHeight: 'unset',
+      padding: `${theme.spacing(1)}px ${theme.spacing(2)}px`,
     },
   },
   search: {

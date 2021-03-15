@@ -23,6 +23,9 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.down('sm')]: {
       grid: '1fr / 1fr',
     },
+    '@media (min-width: 1920px)': {
+      grid: '1fr / repeat(3, 1fr)',
+    },
   },
   empty: {
     grid: '1fr / 1fr',
