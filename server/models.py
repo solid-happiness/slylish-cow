@@ -1,3 +1,4 @@
+import hashlib
 from abc import ABC
 from typing import List, NamedTuple
 from requests.models import Response
@@ -42,7 +43,9 @@ class Company(ABC):
     @classmethod
     def get_id(cls):
         if not hasattr(cls, '_id'):
-            cls._id = hash(cls) % 1000
+            hashed = cls.title + cls.main_url + cls.logo
+            digest = hashlib.md5(hashed.encode('utf-8')).hexdigest()
+            cls._id = int(digest, 16) % 1000
         return cls._id
 
     @classmethod
@@ -60,11 +63,3 @@ class Company(ABC):
             'mainUrl': cls.main_url,
             'logo': cls.logo,
         }
-
-    def __eq__(self, another):
-        if not issubclass(type(another, Company)):
-            return False
-        return self.title == another.title and self.main_image_url == another.main_image_url
-    
-    def __hash__(self):
-        return hash(self.title + self.main_image_url + self.main_url)

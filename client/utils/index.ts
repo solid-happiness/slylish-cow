@@ -1,2 +1,2 @@
 export const getApiUrl = () =>
-  typeof window === 'undefined' ? 'http://localhost:5000' : '';
+  typeof window === 'undefined' ? 'https://stylishcow.ru' : '';
