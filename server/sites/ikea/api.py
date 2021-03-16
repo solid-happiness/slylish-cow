@@ -24,6 +24,7 @@ class IkeaApi(Company):
         ))
         return [
             Product(
+                search_query=params.query,
                 title=item['product']['name'],
                 price=item['product']['priceNumeral'],
                 image_url=item['product']['mainImageUrl'],

@@ -35,19 +35,10 @@ def search_product():
             company.search(search_params)
         )
 
-    def query_match(title):
-        return query.lower() in map(lambda w: w.lower(), title.split())
-
-    searched_products = [
-        p for p in searched_products if query_match(p.title)
-    ] + [
-        p for p in searched_products if not query_match(p.title)
-    ]
-
     return jsonify({
         'payload': list(map(
             lambda product: product.to_json(),
-            searched_products[:results_size * len(COMPANIES_LIST)]
+            sorted(searched_products[:results_size * len(COMPANIES_LIST)], reverse=True)
         ))
     })
 
