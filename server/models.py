@@ -10,8 +10,7 @@ class RatingMixIn:
     def _compute_rating(self):
         raise NotImplemented
 
-    def __init__(self, search_query: str, *args, **kwargs):
-        self.search_query = search_query
+    def __init__(self, *args, **kwargs):
         self.rating = int(self._compute_rating())
 
     def __lt__(self, other):
@@ -42,12 +41,9 @@ class Product(RatingMixIn):
     
     def _compute_rating(self):
         rating = 0
-        for word in self.title.split():
-            if word in self.search_query.lower():
-                rating += 2
-        for word in self.description.split():
-            if word in self.search_query.lower():
-                rating += 1
+        for word in self.search_query.split():
+            rating += self.title.lower().count(word.lower()) * 2
+            rating += self.description.lower().count(word.lower())
         return rating
 
     def to_json(self):
