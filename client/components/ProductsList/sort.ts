@@ -16,6 +16,10 @@ const unifySign = (result: number) => {
 };
 
 export const sortProducts = (sortOption: SortOption, products: Product[]) => {
+  if (sortOption === SortOption.RATING) {
+    return sort((a, b) => unifySign(b.rating - a.rating), products);
+  }
+
   if (sortOption === SortOption.NAME) {
     return sortBy(prop('title'), products);
   }

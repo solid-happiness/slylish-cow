@@ -5,4 +5,5 @@ export type Product = {
   imageUrl: string;
   productUrl: string;
   siteLogo: string;
+  rating: number;
 };
