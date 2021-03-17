@@ -84,3 +84,31 @@ class SportMasterApi(BaseOnDiginetica):
     main_url = 'https://www.sportmaster.ru'
     logo = '/companies/sportmaster/img/logo.png'
     api_key = 'HNUM1K4B2N'
+
+
+class SunlightApi(BaseOnDiginetica):
+    title = 'Санлайт'
+    main_url = 'https://sunlight.net'
+    logo = '/companies/sunligth/img/logo.png'
+    api_key = '7DRN52IVBN'
+
+
+class CitilinkApi(BaseOnDiginetica):
+    title = 'Ситилинк'
+    main_url = 'https://www.citilink.ru'
+    logo = '/companies/citilink/img/logo.png'
+    api_key = 'UCC76J09GL'
+
+
+class SokolovApi(BaseOnDiginetica):
+    title = 'Соколов'
+    main_url = 'https://sokolov.ru'
+    logo = '/companies/sokolov/img/logo.png'
+    api_key = '8PAZ2H1I1X'
+
+
+class CastoramaApi(BaseOnDiginetica):
+    title = 'Касторама'
+    main_url = 'https://www.castorama.ru'
+    logo = '/companies/castorama/img/logo.png'
+    api_key = '95NSPMSJ52'
