@@ -12,12 +12,12 @@ class SamsungApi(Company):
     logo = '/companies/samsung/img/logo.png'
 
     @classmethod
-    def search(cls, params: SearchParams) -> List[Product]:
-        response = requests.get(
+    async def search(cls, params: SearchParams) -> List[Product]:
+        response = await cls.get(
             f'https://esapi.samsung.com/search/query/v6?start=0&num={params.size}&categoryTab=all&searchValue={params.query}&siteCd=ru'
         )
 
-        items = response.json()['response']['resultData']['resultList']
+        items = response['response']['resultData']['resultList']
 
         if not items:
             return []

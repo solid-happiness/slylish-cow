@@ -10,11 +10,11 @@ class AuchanApi(Company):
     logo = '/companies/auchan/img/logo.png'
 
     @classmethod
-    def search(cls, params: SearchParams) -> List[Product]:
-        response = cls.get(
+    async def search(cls, params: SearchParams) -> List[Product]:
+        response = await cls.get(
             f'https://www.auchan.ru/v1/search?merchantId=1&query={params.query}'
         )
-        items = response.json().get('items')
+        items = response.get('items')
 
         if not items:
             return []
@@ -25,10 +25,10 @@ class AuchanApi(Company):
         for item in items:
             item_code = item['code']
 
-            response = cls.get(
+            response = await cls.get(
                 f"https://www.auchan.ru/v1/catalog/product-detail?code={item_code}&merchantId=1"
             )
-            description = response.json()['description']['content']
+            description = response['description']['content']
 
             result_items.append(
                     Product(

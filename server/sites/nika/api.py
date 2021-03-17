@@ -9,12 +9,12 @@ class NikaApi(Company):
     logo = '/companies/nika/img/logo.png'
 
     @classmethod
-    def search(cls, params: SearchParams) -> List[Product]:
-        r = cls.get(
+    async def search(cls, params: SearchParams) -> List[Product]:
+        r = await cls.get(
             f'https://api.hosting.ue0.ru/v5/Catalog/Goods/Search?q={params.query}&take={params.size}'
         )
 
-        items = r.json()['data']['elements']
+        items = r['data']['elements']
 
         return [
             Product(

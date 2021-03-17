@@ -1,9 +1,7 @@
 import hashlib
 from abc import ABC
-from typing import List, NamedTuple
-from requests.models import Response
-from requests import Session
-import string
+from typing import Coroutine, List, NamedTuple
+import aiohttp
 
 
 class RatingMixIn:
@@ -76,12 +74,6 @@ class Company(ABC):
     logo: str
 
     @classmethod
-    def get_session(cls):
-        if not hasattr(cls, '_session'):
-            cls._session = Session()
-        return cls._session
-    
-    @classmethod
     def get_id(cls):
         if not hasattr(cls, '_id'):
             hashed = cls.title + cls.main_url + cls.logo
@@ -90,8 +82,11 @@ class Company(ABC):
         return cls._id
 
     @classmethod
-    def get(cls, query: str) -> Response:
-        return cls.get_session().get(query)
+    async def get(cls, url: str) -> Coroutine:
+        async with aiohttp.request('GET', url) as response:
+            json_reponse = await response.json()
+            response.close()
+            return json_reponse
 
     def serach(params: SearchParams) -> List[Product]:
         raise NotImplementedError

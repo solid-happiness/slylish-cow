@@ -10,12 +10,12 @@ class RiveGaucheApi(Company):
     logo = '/companies/rivegauche/img/logo.png'
 
     @classmethod
-    def search(cls, params: SearchParams) -> List[Product]:
-        r = cls.get(
+    async def search(cls, params: SearchParams) -> List[Product]:
+        r = await cls.get(
             f'https://shop.rivegauche.ru/rg/v1/newRG/products/search?currentPage=0&pageSize={params.size}&text={params.query}'
         )
 
-        items = r.json()['results']
+        items = r['results']
 
         return [
             Product(

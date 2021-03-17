@@ -8,12 +8,12 @@ class BaseOnDiginetica(Company):
     api_key: str
 
     @classmethod
-    def search(cls, params: SearchParams) -> List[Product]:
-        r = cls.get(
+    async def search(cls, params: SearchParams) -> List[Product]:
+        r = await cls.get(
             f'https://sort.diginetica.net/search?st={params.query}&apiKey={cls.api_key}&fullData=true&size={params.size}'
         )
 
-        items = r.json()['products']
+        items = r['products']
 
         return [
             Product(

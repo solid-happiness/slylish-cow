@@ -10,20 +10,20 @@ class LacosteApi(Company):
     logo = '/companies/lacoste/img/logo.png'
 
     @classmethod
-    def search(cls, params: SearchParams) -> List[Product]:
-        response = cls.get(
+    async def search(cls, params: SearchParams) -> List[Product]:
+        response = await cls.get(
             f'https://lacoste.ru/api/catalog.php?q={params.query}&perPage={params.size}'
         )
-        items = response.json().get('list', [])
+        items = response.get('list', [])
 
         result_items: List[Product] = []
         for item in items:
             item_code = item['code']
 
-            response = cls.get(
+            response = await cls.get(
                 f"https://lacoste.ru/api/catalog.php?ELEMENT_CODE={item_code}"
             )
-            description = response.json()['item']['catDesc']
+            description = response['item']['catDesc']
 
             result_items.append(
                 Product(

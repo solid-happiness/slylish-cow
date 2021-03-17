@@ -1,13 +1,32 @@
 from typing import List
+import asyncio
+from contextlib import suppress
 
 from flask import Flask, jsonify, request
 
-from server.models import SearchParams
+from server.models import Company, SearchParams
 from server.companies import COMPANIES_LIST
 
 
 app = Flask(__name__)
 
+
+DEFAULT_TIMEOUT = 2.0
+
+async def asynchronous_search(companies: List[Company], params: SearchParams):
+    futures = [company.search(params) for company in companies]
+    done, pending = await asyncio.wait(
+        futures, timeout=DEFAULT_TIMEOUT, return_when=asyncio.ALL_COMPLETED)
+    results = []
+    for task in done:
+        with suppress(Exception):
+            results.extend(
+                task.result()
+            )
+
+    for future in pending:
+        future.cancel()
+    return results
 
 @app.route('/api/search', methods=['GET'])
 def search_product():
@@ -28,12 +47,15 @@ def search_product():
     else:
         companies_to_search = COMPANIES_LIST
 
-    searched_products = []
-    search_params = SearchParams(query=query, size=results_size)
-    for company in companies_to_search:
-        searched_products.extend(
-            company.search(search_params)
+    ioloop = asyncio.new_event_loop()
+    asyncio.set_event_loop(ioloop)
+    searched_products = ioloop.run_until_complete(
+        asynchronous_search(
+            companies=companies_to_search,
+            params=SearchParams(query=query, size=results_size),
         )
+    )
+    ioloop.close()
 
     return jsonify({
         'payload': list(map(
