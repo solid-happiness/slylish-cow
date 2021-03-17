@@ -34,6 +34,7 @@ class SamsungApi(Company):
 
             result_items.append(
                 Product(
+                    search_query=params.query,
                     title=clean_html(item['title']),
                     price=parse_float(model['priceCurrency']),
                     image_url=f"https://images.samsung.com/is/image/samsung/{model['galleryImage'][0]}",

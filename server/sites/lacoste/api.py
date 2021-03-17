@@ -27,6 +27,7 @@ class LacosteApi(Company):
 
             result_items.append(
                 Product(
+                    search_query=params.query,
                     title=item['name'],
                     price=parse_float(item['prices']['current']),
                     image_url=f"https:{item['images'][0]}",

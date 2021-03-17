@@ -19,6 +19,7 @@ class RiveGaucheApi(Company):
 
         return [
             Product(
+                search_query=params.query,
                 title=item['name'],
                 price=item['prices'][0]['value'],
                 image_url=f"https://shop.rivegauche.ru{item['listingImage']['url']}",

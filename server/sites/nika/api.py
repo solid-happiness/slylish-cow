@@ -18,6 +18,7 @@ class NikaApi(Company):
 
         return [
             Product(
+                search_query=params.query,
                 title=item['name'],
                 price=item['price']['with_discount'] / 100,
                 image_url=item['images']['main'],

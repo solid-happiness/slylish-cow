@@ -17,6 +17,7 @@ class BaseOnDiginetica(Company):
 
         return [
             Product(
+                search_query=params.query,
                 title=item['name'],
                 price=parse_float(item['price']),
                 image_url=item['image_url'],

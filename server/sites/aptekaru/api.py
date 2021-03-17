@@ -33,6 +33,7 @@ class AptekaruApi(Company):
 
             result_items.append(
                 Product(
+                    search_query=params.query,
                     title=clean_html(item['tradeName']),
                     price=item['minPrice'],
                     image_url=item['photos'][0]['original'],

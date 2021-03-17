@@ -32,6 +32,7 @@ class AuchanApi(Company):
 
             result_items.append(
                     Product(
+                    search_query=params.query,
                     title=item['name'],
                     price=item['price']['value'],
                     image_url=f"https://www.auchan.ru/files/compressed/{item['image']['id']}/",
