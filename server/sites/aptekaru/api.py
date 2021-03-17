@@ -10,12 +10,12 @@ class AptekaruApi(Company):
     logo = '/companies/aptekaru/img/logo.png'
 
     @classmethod
-    def search(cls, params: SearchParams) -> List[Product]:
-        response = cls.get(
+    async def search(cls, params: SearchParams) -> List[Product]:
+        response = await cls.get(
             f'https://api.apteka.ru/Search/ByPhrase?phrase={params.query}&pageSize={params.size}'
         )
         try:
-            items = response.json().get('result')
+            items = response.get('result')
         except AttributeError:
             return []
 
@@ -26,10 +26,10 @@ class AptekaruApi(Company):
         for item in items:
             item_id = item['id']
 
-            response = cls.get(
+            response = await cls.get(
                 f"https://api.apteka.ru/Item/Info?id={item_id}/"
             )
-            description = response.json().get('genDesc', '')
+            description = response.get('genDesc', '')
 
             result_items.append(
                 Product(

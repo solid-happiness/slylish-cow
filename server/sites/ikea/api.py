@@ -9,11 +9,11 @@ class IkeaApi(Company):
     logo = '/companies/ikea/img/logo.png'
 
     @classmethod
-    def search(cls, params: SearchParams) -> List[Product]:
-        response = cls.get(
+    async def search(cls, params: SearchParams) -> List[Product]:
+        response = await cls.get(
             f'https://sik.search.blue.cdtapps.com/ru/ru/search-result-page?q={params.query}&size={params.size}&columns=4'
         )
-        search_result = response.json().get('searchResultPage')
+        search_result = response.get('searchResultPage')
 
         if not search_result:
             return []
