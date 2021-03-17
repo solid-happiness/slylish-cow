@@ -9,11 +9,11 @@ class BaseOnDiginetica(Company):
 
     @classmethod
     async def search(cls, params: SearchParams) -> List[Product]:
-        r = await cls.get(
+        response = await cls.get(
             f'https://sort.diginetica.net/search?st={params.query}&apiKey={cls.api_key}&fullData=true&size={params.size}'
         )
 
-        items = r['products']
+        items = response['products']
 
         return [
             Product(
@@ -87,9 +87,9 @@ class SportMasterApi(BaseOnDiginetica):
 
 
 class SunlightApi(BaseOnDiginetica):
-    title = 'Санлайт'
+    title = 'SUNLIGHT'
     main_url = 'https://sunlight.net'
-    logo = '/companies/sunligth/img/logo.png'
+    logo = '/companies/sunlight/img/logo.png'
     api_key = '7DRN52IVBN'
 
 
@@ -101,14 +101,14 @@ class CitilinkApi(BaseOnDiginetica):
 
 
 class SokolovApi(BaseOnDiginetica):
-    title = 'Соколов'
+    title = 'SOKOLOV'
     main_url = 'https://sokolov.ru'
     logo = '/companies/sokolov/img/logo.png'
     api_key = '8PAZ2H1I1X'
 
 
 class CastoramaApi(BaseOnDiginetica):
-    title = 'Касторама'
+    title = 'Castorama'
     main_url = 'https://www.castorama.ru'
     logo = '/companies/castorama/img/logo.png'
     api_key = '95NSPMSJ52'

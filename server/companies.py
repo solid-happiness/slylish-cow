@@ -4,8 +4,10 @@ from server.models import Company
 from server.sites.aptekaru.api import AptekaruApi
 from server.sites.auchan.api import AuchanApi
 from server.sites.diginetica.api import (AllTimeApi, AmWineApi, AzbukaVkusaApi,
-                                         BoscoApi, ElKompApi, HolodilnikRuApi,
-                                         PetrovichApi, SportMasterApi)
+                                         BoscoApi, CastoramaApi, CitilinkApi,
+                                         ElKompApi, HolodilnikRuApi,
+                                         PetrovichApi, SokolovApi,
+                                         SportMasterApi, SunlightApi)
 from server.sites.ikea.api import IkeaApi
 from server.sites.lacoste.api import LacosteApi
 from server.sites.nika.api import NikaApi
@@ -28,4 +30,8 @@ COMPANIES_LIST: List[Company] = [
     HolodilnikRuApi,
     PetrovichApi,
     SportMasterApi,
+    CastoramaApi,
+    CitilinkApi,
+    SokolovApi,
+    SunlightApi,
 ]
