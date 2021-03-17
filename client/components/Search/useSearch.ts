@@ -13,9 +13,7 @@ export const useSearch = (params: { value: string; companies: Company[] }) => {
   const { value, companies } = params;
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState<string | Product[]>([]);
-  const [sortOption, setSortOption] = useState<SortOption>(
-    SortOption.PRICE_DESC
-  );
+  const [sortOption, setSortOption] = useState<SortOption>(SortOption.RATING);
   const [filters, setFilters] = useState(
     {} as Record<number | string, boolean>
   );
