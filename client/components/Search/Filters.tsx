@@ -8,7 +8,7 @@ import {
   Avatar,
   Typography,
   Checkbox,
-  Button,
+  Link,
 } from '@material-ui/core';
 import { any, values, map } from 'ramda';
 
@@ -37,6 +37,15 @@ const useStyles = makeStyles((theme) => ({
   text: {
     flex: 1,
   },
+  list: {
+    position: 'relative',
+  },
+  link: {
+    position: 'absolute',
+    cursor: 'pointer',
+    top: 0,
+    right: '24px',
+  },
 }));
 
 type Props = {
@@ -59,7 +68,7 @@ export const Filters: React.FC<Props> = ({
       <Typography variant="body1" className={s.title}>
         Искать среди следующих <br /> партнёров:
       </Typography>
-      <List dense>
+      <List className={s.list} dense>
         {map(
           (company) => (
             <ListItem key={company.id}>
@@ -85,15 +94,9 @@ export const Filters: React.FC<Props> = ({
           ),
           companies
         )}
-        <ListItem>
-          <Button
-            onClick={reverseSelectedFilters}
-          >
-            {
-              any((value) =>  !!value, values(filters))? "снять выделение" : "выбрать все"
-            }
-          </Button>
-        </ListItem>
+        <Link className={s.link} onClick={reverseSelectedFilters}>
+          {any(Boolean, values(filters)) ? 'снять выделение' : 'выбрать все'}
+        </Link>
       </List>
     </div>
   );
