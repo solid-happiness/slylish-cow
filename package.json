@@ -63,6 +63,9 @@
     "*.@(js|jsx|ts|tsx)": [
       "prettier --write",
       "npm run eslint"
+    ],
+    "*.@(md)": [
+      "prettier --write"
     ]
   }
 }
