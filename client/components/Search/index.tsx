@@ -79,6 +79,7 @@ export const Search: React.FC<Props> = ({ companies }) => {
     setSortOption,
     filters,
     toggleFilter,
+    reverseSelectedFilters,
   } = useSearch({ value, companies });
 
   useMount(() => {
@@ -97,6 +98,7 @@ export const Search: React.FC<Props> = ({ companies }) => {
         companies={companies}
         filters={filters}
         toggleFilter={toggleFilter}
+        reverseSelectedFilters={reverseSelectedFilters}
       />
       <div className={s.container}>
         <div className={s.search}>

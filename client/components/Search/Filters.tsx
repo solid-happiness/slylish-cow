@@ -8,8 +8,9 @@ import {
   Avatar,
   Typography,
   Checkbox,
+  Button,
 } from '@material-ui/core';
-import { map } from 'ramda';
+import { any, values, map } from 'ramda';
 
 import { Company } from 'client/typings';
 
@@ -42,12 +43,14 @@ type Props = {
   companies: Company[];
   filters: Record<number | string, boolean>;
   toggleFilter: (id: number | string) => void;
+  reverseSelectedFilters: () => void;
 };
 
 export const Filters: React.FC<Props> = ({
   companies,
   filters,
   toggleFilter,
+  reverseSelectedFilters,
 }) => {
   const s = useStyles();
 
@@ -82,6 +85,15 @@ export const Filters: React.FC<Props> = ({
           ),
           companies
         )}
+        <ListItem>
+          <Button
+            onClick={reverseSelectedFilters}
+          >
+            {
+              any((value) =>  !!value, values(filters))? "снять выделение" : "выбрать все"
+            }
+          </Button>
+        </ListItem>
       </List>
     </div>
   );
