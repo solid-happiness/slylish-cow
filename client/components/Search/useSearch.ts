@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useTheme, useMediaQuery } from '@material-ui/core';
 import { useLatest } from 'react-use';
-import { isEmpty, reduce, keys, filter, join } from 'ramda';
+import { any, values, isEmpty, reduce, keys, filter, join, mapObjIndexed } from 'ramda';
 
 import { debounce } from 'throttle-debounce';
 import axios from 'axios';
@@ -92,6 +92,13 @@ export const useSearch = (params: { value: string; companies: Company[] }) => {
     filters,
     toggleFilter: (id: number | string) => {
       const resulted = { ...filters, [id]: !filters[id] };
+      setFilters(resulted);
+
+      load(value, resulted);
+    },
+    reverseSelectedFilters: () => {
+      const hasCheckedFilter = any((value) =>  !!value, values(filters))
+      const resulted =  mapObjIndexed(() => !hasCheckedFilter, filters);
       setFilters(resulted);
 
       load(value, resulted);
