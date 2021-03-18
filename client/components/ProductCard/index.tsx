@@ -13,7 +13,6 @@ import {
   Typography,
   Tooltip,
 } from '@material-ui/core';
-import { red } from '@material-ui/core/colors';
 import Clipboard from 'clipboard';
 
 import FavoriteIcon from '@material-ui/icons/Favorite';
@@ -37,9 +36,6 @@ const useStyles = makeStyles((theme) => ({
   media: {
     height: 0,
     paddingTop: '56.25%',
-  },
-  avatar: {
-    backgroundColor: red[500],
   },
   content: {
     flex: 1,
@@ -98,7 +94,7 @@ export const ProductCard: React.FC<Props> = ({ product }) => {
     <a className={s.link} href={product.productUrl} target="_blank">
       <Card className={s.root}>
         <CardHeader
-          avatar={<Avatar className={s.avatar} src={product.siteLogo} />}
+          avatar={<Avatar src={product.siteLogo} />}
           title={product.title}
           subheader={`Цена: ${product.price} ₽`}
         />
