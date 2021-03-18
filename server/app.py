@@ -35,17 +35,18 @@ def search_product():
     if not query:
         return jsonify({'status': 'error', 'message': 'EMPTY_QUERY'})
     companies_ids = request.args.get('apis')
-    if companies_ids:
-        companies_ids = list(map(
-            lambda company_id: int(company_id),
-            companies_ids.split(',')
-        ))
-        companies_to_search = filter(
-            lambda company: company.get_id() in companies_ids,
-            COMPANIES_LIST
-        )
-    else:
-        companies_to_search = COMPANIES_LIST
+    if not companies_ids:
+        return jsonify({
+            'error': 'NOT_SET_APIS'
+        })
+    companies_ids = list(map(
+        lambda company_id: int(company_id),
+        companies_ids.split(',')
+    ))
+    companies_to_search = filter(
+        lambda company: company.get_id() in companies_ids,
+        COMPANIES_LIST
+    )
 
     ioloop = asyncio.new_event_loop()
     asyncio.set_event_loop(ioloop)
